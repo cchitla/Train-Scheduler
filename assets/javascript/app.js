@@ -28,7 +28,7 @@ $(document).ready(function () {
         let firstTrainTime = $("#first-train-time").val();
         let frequency = $("#frequency").val();
         populateList(trainName, destination, frequency, firstTrainTime);
-    })
+    });
 
 
 
@@ -39,9 +39,10 @@ $(document).ready(function () {
 
 
     function populateList(trainName, destination, frequency, firstTrainTime) {
-        let nextArrival = nextArrivalTime(firstTrainTime, frequency)
-        //calculate next arrival time
+        let nextArrival = nextArrivalTime(firstTrainTime, frequency);
         //calculate minutes away
+        
+        
 
         let newTrain = $("<tr>");
         newTrain.html(`
@@ -57,9 +58,12 @@ $(document).ready(function () {
 
 
 
-    function nextArrivalTime(firstTrainTime, frequency) {
-        let currentHour = moment().hour();
-        let currentMinute = moment().minute();
+    let currentHour = moment().hour();
+    let currentMinute = moment().minute();
+
+
+
+    function nextArrivalTime(firstTrainTime, frequency) {   
         let totalMinsNow = currentMinute + (currentHour * 60);
 
         let inputTime = firstTrainTime.split(":");
@@ -72,13 +76,14 @@ $(document).ready(function () {
             arrivalTimeCounter = arrivalTimeCounter + freq;
         };
         
-        let arrivalTimeStr = arrivalTimeCounter.toString();
-
-        let nextTrain = `${arrivalTimeStr[0]}${arrivalTimeStr[1]}:${arrivalTimeStr[2]}${arrivalTimeStr[3]}`
+        let arrivalHour = Math.floor(arrivalTimeCounter / 60);
+        let arrivalMins = arrivalTimeCounter % 60;
+        
+        let nextTrain = `${arrivalHour}:${arrivalMins}`;
 
         return nextTrain;
     };   
 
 
-
+    
 });
