@@ -51,7 +51,7 @@
                         <th scope="col">Minutes Away</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="train-list">
                     <tr>
                         <td>Train name</td>
                         <td>Mark</td>
@@ -85,25 +85,25 @@
             <form class="m-3">
                 <div class="form-group">
                   <label>Train Name</label>
-                  <input type="text" class="form-control">
+                  <input id="train-name" type="text" class="form-control">
                 </div>
 
                 <div class="form-group">
                   <label>Destination</label>
-                  <input type="text" class="form-control">
+                  <input id="destination" type="text" class="form-control">
                 </div>
                 
                 <div class="form-group">
                   <label>First Train Time (HH: mm - military time)</label>
-                  <input type="text" class="form-control">
+                  <input id="first-train-time" type="text" class="form-control">
                 </div>
                 
                 <div class="form-group">
                   <label>Frequency (min)</label>
-                  <input type="text" class="form-control">
+                  <input id="frequency" type="text" class="form-control">
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button id="submit-btn" type="button" class="btn btn-primary">Submit</button>
               </form>
           </div>
 
@@ -120,8 +120,8 @@
 
 
     <!-- firebase  -->
-    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-database.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-database.js"></script> -->
 
     <script src="assets/javascript/app.js"></script>
 </body>
