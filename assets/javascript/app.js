@@ -15,13 +15,6 @@ $(document).ready(function () {
 
     let db = firebase.database();
 
-
-
-
-
-
-
-
     $("#submit-btn").on("click", function () {
         let trainName = $("#train-name").val();
         let destination = $("#destination").val();
@@ -30,40 +23,26 @@ $(document).ready(function () {
         populateList(trainName, destination, frequency, firstTrainTime);
     });
 
-
-
-
-
-
-
-
-
     function populateList(trainName, destination, frequency, firstTrainTime) {
         let nextArrival = nextArrivalTime(firstTrainTime, frequency);
-        //calculate minutes away
-        
-        
+
+        let minutesAway = minutesToNextTrain(nextArrival);
 
         let newTrain = $("<tr>");
         newTrain.html(`
             <td>${trainName}</td>
             <td>${destination}</td>
             <td>${frequency}</td>
-            <td>${nextArrival}</td>`
-            // <td>${minutesAway}</td>
+            <td>${nextArrival}</td>
+            <td>${minutesAway}</td>`
         );
 
         $("#train-list").append(newTrain);
     };
 
-
-
-    let currentHour = moment().hour();
-    let currentMinute = moment().minute();
-
-
-
-    function nextArrivalTime(firstTrainTime, frequency) {   
+    function nextArrivalTime(firstTrainTime, frequency) {
+        let currentHour = moment().hour();
+        let currentMinute = moment().minute();
         let totalMinsNow = currentMinute + (currentHour * 60);
 
         let inputTime = firstTrainTime.split(":");
@@ -75,15 +54,27 @@ $(document).ready(function () {
         while (arrivalTimeCounter < totalMinsNow) {
             arrivalTimeCounter = arrivalTimeCounter + freq;
         };
-        
+
         let arrivalHour = Math.floor(arrivalTimeCounter / 60);
         let arrivalMins = arrivalTimeCounter % 60;
-        
+
         let nextTrain = `${arrivalHour}:${arrivalMins}`;
 
         return nextTrain;
-    };   
+    };
 
 
+    function minutesToNextTrain (nextArrival) {
+        let currentHour = moment().hour();
+        let currentMinute = moment().minute();
+        let totalMinsNow = currentMinute + (currentHour * 60);
+
+        let arrivalTime = nextArrival.split(":");        
+        let totalArrivalMins = parseInt(arrivalTime[0]) * 60 + parseInt(arrivalTime[1]);
+
+        let minsToNextTrain = totalArrivalMins - totalMinsNow;
     
+        return minsToNextTrain;            
+    };
+
 });
