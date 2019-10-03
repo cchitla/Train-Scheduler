@@ -15,13 +15,45 @@ $(document).ready(function () {
 
     let db = firebase.database();
 
+
+    
+
+
     $("#submit-btn").on("click", function () {
         let trainName = $("#train-name").val();
         let destination = $("#destination").val();
         let firstTrainTime = $("#first-train-time").val();
         let frequency = $("#frequency").val();
-        populateList(trainName, destination, frequency, firstTrainTime);
+
+        db.ref().push({
+            trainName: trainName,
+            destination: destination,
+            firstTrainTime: firstTrainTime,
+            frequency: frequency,
+        });
+
+        $("$train-name").val("");
+        $("$destination").val("");
+        $("$first-train-name").val("");
+        $("$frequency").val("");
     });
+
+
+    db.ref().on("child_added", function(snapshot){
+        console.log(snapshot.val())
+
+        let trainName = snapshot.val().trainName;
+        let destination = snapshot.val().destination;
+        let firstTrainTime = snapshot.val().firstTrainTime;
+        let frequency = snapshot.val().frequency;
+
+        populateList(trainName, destination, frequency, firstTrainTime);
+
+
+    });
+
+
+
 
     function populateList(trainName, destination, frequency, firstTrainTime) {
         let nextArrival = nextArrivalTime(firstTrainTime, frequency);
@@ -39,6 +71,11 @@ $(document).ready(function () {
 
         $("#train-list").append(newTrain);
     };
+
+
+
+
+// couldn't get moment.js to do the diff method :(
 
     function nextArrivalTime(firstTrainTime, frequency) {
         let currentHour = moment().hour();
