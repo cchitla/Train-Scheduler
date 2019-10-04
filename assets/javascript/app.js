@@ -32,10 +32,10 @@ $(document).ready(function () {
             frequency: frequency,
         });
 
-        $("$train-name").val("");
-        $("$destination").val("");
-        $("$first-train-name").val("");
-        $("$frequency").val("");
+        $("#train-name").val("");
+        $("#destination").val("");
+        $("#first-train-time").val("");
+        $("#frequency").val("");
     });
 
 
@@ -94,6 +94,17 @@ $(document).ready(function () {
 
         let arrivalHour = Math.floor(arrivalTimeCounter / 60);
         let arrivalMins = arrivalTimeCounter % 60;
+
+        // THIS FIXES NEXT ARRIVAL HOUR BUT WILL MESS UP NEXT ARRIVAL TIME
+
+        // if (arrivalHour > 72) {
+        //     arrivalHour = arrivalHour - 72;
+        // } else if (arrivalHour > 48) {
+        //     arrivalHour = arrivalHour - 48;
+        // }
+        // else if (arrivalHour > 24) {
+        //     arrivalHour = arrivalHour - 24;
+        // };
 
         let nextTrain = `${arrivalHour}:${arrivalMins}`;
 
